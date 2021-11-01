@@ -1,0 +1,35 @@
+/* Utility  styles */
+.p-1{
+    padding: 1rem;
+}
+.d-flex{
+    display: flex;
+}
+header{
+    background-color: #ff0f67;
+    color: #fff;
+    cursor: pointer;
+}
+.nav-wrapper{
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-container{
+    list-style: none;
+    font-size: 1rem;
+    align-items: center;
+}
+.nav-container>li:not(:last-child){
+    margin-right: 4rem;
+}
+.search-box{
+    font-size: 1.2rem !important;
+    padding: 0.4rem;
+    border: 1px solid #fff;
+    width: 18rem;
+    outline: none;
+}
+.search-box:focus{
+    outline: none;
+
+}
