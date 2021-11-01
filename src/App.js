@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import {getPlacesData} from './helper/index';
 import Lists from "./components/Lists";
 import Header from "./components/Header";
+import { Container } from "@mui/material";
 function App() {
   const [coordinates,setCoordinates] = useState({});
   const [bounds,setBounds] = useState(null);
@@ -27,10 +28,12 @@ function App() {
     <div>
       {/* Header */}
       <Header/>
-
+      <Container>
+        <Lists places={places}/>
+      </Container>
       <Grid container spacing={2} padding={2}>
         <Grid item xs={12} md={4}>
-          <Lists places={places}/>
+          
         </Grid>
         <Grid item xs={12} md={8}>
           <Map coordinates={coordinates} setCoordinates={setCoordinates} setBounds={setBounds}/>

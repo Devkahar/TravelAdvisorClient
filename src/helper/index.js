@@ -2,7 +2,7 @@ import axios from 'axios';
 
     
 const getPlacesData = async (sw,ne) => {
-    const URL = 'https://travel-advisor.p.rapidapi.com/attractions/list-in-boundary';
+    const URL = 'https://travel-advisor.p.rapidapi.com/restaurants/list-in-boundary';
     const options = {
         params: {
           bl_latitude: sw.lat,
