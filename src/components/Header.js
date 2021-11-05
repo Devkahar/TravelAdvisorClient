@@ -10,7 +10,8 @@ const Header = () => {
                 <ul className="nav-container d-flex">
                     <li><Typography variant="h4" >Travel Advisor</Typography></li>
                     <li>
-                        
+                        <div className="">
+                        </div>
                         <input type="text" className="search-box" placeholder="Search Cities, cool places..."/>
 
                     </li>
@@ -26,4 +27,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default Header;

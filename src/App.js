@@ -5,6 +5,8 @@ import {getPlacesData} from './helper/index';
 import Lists from "./components/Lists";
 import Header from "./components/Header";
 import { Container } from "@mui/material";
+import { BrowserRouter as Router, Route,Switch } from "react-router-dom";
+import PlacesPage from "./components/PlacesPage";
 function App() {
   const [coordinates,setCoordinates] = useState({});
   const [bounds,setBounds] = useState(null);
@@ -25,21 +27,28 @@ function App() {
     }
   },[bounds]);
   return (
-    <div>
-      {/* Header */}
-      <Header/>
-      <Container>
-        <Lists places={places}/>
-      </Container>
-      <Grid container spacing={2} padding={2}>
-        <Grid item xs={12} md={4}>
+      <Router>
+        <Header />
+        <Switch>
+          {/* Header */}
+          <Route exact path="/viewPlacesDetails/:id" component={PlacesPage} />
+          <Route exact path="/">
+            <Container>
+              <Lists places={places} />
+            </Container>
+            <Grid container spacing={2} padding={2}>
+              <Grid item xs={12} md={4}>
+              </Grid>
+              <Grid item xs={12} md={8}>
+                <Map coordinates={coordinates} setCoordinates={setCoordinates} setBounds={setBounds}/>
+              </Grid>
+            </Grid>
+          </Route>
           
-        </Grid>
-        <Grid item xs={12} md={8}>
-          <Map coordinates={coordinates} setCoordinates={setCoordinates} setBounds={setBounds}/>
-        </Grid>
-      </Grid>
-    </div>
+        </Switch>
+        
+      </Router>
+    
   );
 }
 

@@ -6,46 +6,38 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
-export default function MediaCard({name,address,image,rating,ranking}) {
-    const renderStart = (n)=>{
-        return (
-            Array(n).fill(0).map((e,i) =>{
-            return <StarIcon style={{fill: '#FF9529'}}/>
-        })
-        )
-    }
+import {Link} from 'react-router-dom';
+import { Rating } from '@mui/material';
+export default function MediaCard({place}) {
+    
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         height="200"
-        image={image?.url}
-        alt="green iguana"
+        image={place.photo.images.original.url}
+        
+        alt={place.name}
       />
+      {/* {console.log(place.photo.images.original.url)} */}
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {name}
+          {place.name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {address}
+          {place.address}
         </Typography>
-        <br/>
         <Typography variant="p" color="text.secondary">
-          {ranking}
+          {place.subcategory_ranking}
         </Typography>
-        <br/>
-        <br/>
         <Typography variant="p" color="text.secondary">
           <div className="d-flex">
-              {
-                renderStart(parseInt(rating))
-              }
+              <Rating name="read-only" value={parseFloat(place.rating)} precision={0.5} readOnly />
           </div>
         </Typography>
       </CardContent>
       <CardActions>
-
-        <Button size="small">See More</Button>
+        <Button size="small"><Link to={{pathname: `/viewPlacesDetails/${place.location_id}`, state: {...place}}} style={{textDecoration:"none", color:"inherit"}}>See More</Link></Button>
       </CardActions>
     </Card>
   );

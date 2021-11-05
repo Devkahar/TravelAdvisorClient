@@ -11,14 +11,9 @@ const Lists = ({places}) => {
             <Grid container spacing={2}>
                 {places?.map(place =>(
                     <>
-
                     {place.photo&& (<Grid item md={4} xs={12}>
                         <Card 
-                            name={place.name}
-                            address={place.address}
-                            rating={place.rating}
-                            image={place.photo?.images.original}
-                            ranking={place.subcategory_ranking}
+                            place={place}
                         />
                     </Grid>)}
                     </>
