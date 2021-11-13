@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
 import {Link} from 'react-router-dom';
-import { Rating } from '@mui/material';
+import { Chip, Rating } from '@mui/material';
 export default function MediaCard({place}) {
     
   return (
@@ -28,13 +28,16 @@ export default function MediaCard({place}) {
           {place.address}
         </Typography>
         <Typography variant="p" color="text.secondary">
-          {place.subcategory_ranking}
+          {place.ranking}
         </Typography>
         <Typography variant="p" color="text.secondary">
           <div className="d-flex">
               <Rating name="read-only" value={parseFloat(place.rating)} precision={0.5} readOnly />
           </div>
         </Typography>
+        {place?.cuisine?.map(({name}) => (
+          <Chip label={name} sx={{mb: "8px",mr: "5px"}}/>
+        ))}
       </CardContent>
       <CardActions>
         <Button size="small"><Link to={{pathname: `/viewPlacesDetails/${place.location_id}`, state: {...place}}} style={{textDecoration:"none", color:"inherit"}}>See More</Link></Button>

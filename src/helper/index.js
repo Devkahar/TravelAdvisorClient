@@ -7,8 +7,8 @@ const key1= "80b9502cddmshb0f15ca82d9513fp18cda4jsn39318d159672";
 const key2= "e459e3700amsh1643555e8da30bfp159241jsn289d99d7226b";
 const key3= "42aa039cbfmshee326db8eb75280p125554jsn359b0ed12bfd";
 
-const getPlacesData = async (sw,ne) =>{
-    const URL = 'https://travel-advisor.p.rapidapi.com/attractions/list-in-boundary';
+const getPlacesData = async (sw,ne,type) =>{
+    const URL = `https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`;
     const options = {
         params: {
           bl_latitude: sw.lat,
