@@ -6,6 +6,10 @@ import {getPlacesDetails} from '../helper/index'
 import Loading from './Loading'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded';
 import LaunchIcon from '@mui/icons-material/Launch';
+import DescriptionIcon from '@mui/icons-material/Description';
+import Review from './Review';
+import axios from 'axios';
+
 const PlacesPage = (props) => {
     const [loading,setLoading] = useState(true);
     const [name,setName] = useState('');
@@ -16,9 +20,12 @@ const PlacesPage = (props) => {
     const [subType,setSubType] = useState([]);
     const [isClosed,setIsClosed] = useState(false);
     const [webUrl,setWebUrl] = useState('');
+    const [userData,setUserData] = useState(null);
     const [email,setEmail] = useState('');
     useEffect(async ()=>{
         try {
+            setUserData(JSON.parse(localStorage.getItem('userInfo')));
+            console.log(userData);
             const data = await getPlacesDetails(props.match.params.id);
             setLoading(true);
             if(data){
@@ -40,6 +47,22 @@ const PlacesPage = (props) => {
         }
         
     },[]);
+    const addToBucketHandler = ()=>{
+        console.log('clicked');
+        axios.post('/api/user/bucket/',{
+            placeID : props.match.params.id,
+            type : props.match.params.type,
+        }, {
+            headers:{
+            'Authorization': `Bearer ${userData.token}`,
+        }})
+        .then(res=>{
+            console.log(res.data);
+        })
+        .catch(error=>{
+            console.log(error.message);
+        })
+    }
     return (
         <Container>
             {loading==true?<Loading/>:(
@@ -101,20 +124,18 @@ const PlacesPage = (props) => {
                     <Grid item md={5} xs={12}>
                         <Box variant="div" sx={{mb: 2}}>
                             <Typography variant="h4" sx={{mb: 3,justifyContent: 'left'}}>
-                                Description
+                                Description <DescriptionIcon/>
                             </Typography>
                             <Typography variant="p" sx={{fontSize: 16,lineHeight: '20px',letterSpacing: '0.5px'}}>
                                 {description? `${description}` : 'Good Place to visit Have really Nice Reviews'}
                             </Typography>
                         </Box> 
                         <Box variant="div" >
-                            <Button variant="contained" color="primary" sx={{mr: 5}}>Mark Visied</Button>
-                            <Button variant="contained" sx={{backgroundColor: "#ff0f67", '&:hover':{backgroundColor: "#ff0f67"}}}>Add To Bucket</Button>
+                            <Button  onClick={addToBucketHandler} variant="contained" sx={{backgroundColor: "#ff0f67", '&:hover':{backgroundColor: "#ff0f67"}}}>Add To Bucket</Button>
                         </Box>
                     </Grid>
-
                 </Grid>
-                {/* Awards */}
+                <Review locationID ={props.match.params.id} type={props.match.params.type} />
                 </>
             )}
         </Container>

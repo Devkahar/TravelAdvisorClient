@@ -2,9 +2,15 @@ import React from 'react'
 import GoogleMapReact from 'google-map-react';
 import { Box } from '@mui/system';
 import { Paper, Typography, useMediaQuery } from '@material-ui/core';
-const Map = ({coordinates,setCoordinates,setBounds,places}) => {
+import mapStyles from './mapStyle';
+import useStyles from './style.js';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import { Rating } from '@mui/material';
+const Map = ({coordinates,setCoordinates,setBounds,places,setChildClicked}) => {
+    const matches = useMediaQuery('(min-width:600px)');
+    const classes = useStyles();
     return (
-        <div style={{height: '85vh',width: '100%'}}>
+        <div style={{ height: '65vh',width: '90%'}}>
             <GoogleMapReact
                 bootstrapURLKeys={{key: 'AIzaSyDAM0upneeZP9IdiuX-_IOqU4KOv5lDJ4Y'}}
                 defaultCenter={coordinates}
@@ -16,26 +22,27 @@ const Map = ({coordinates,setCoordinates,setBounds,places}) => {
                     setCoordinates({lat: e.center.lat,lng: e.center.lng});
                     setBounds({ne: e.marginBounds.ne, sw: e.marginBounds.sw});
                 }}
+                onChildClick={(child) => setChildClicked(child)}
             >
             {places?.map((place,i)=>(
                 <div 
-                    style={{position: 'absolute', transform: 'translate(-50%, -50%)', zIndex: 1, '&:hover': { zIndex: 2 }}}
+                className={classes.markerContainer}
                     lat={place.latitude}
                     lng={place.longitude}
                     key={i}
                 >
-                    <Paper elevation={3} 
-                        sx={{padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100px'}}
-                    >
-                        <Typography variant="subtitle2" xs={{fontSize:"12px"}} gutterBottom>
-                            {place?.name}
-                        </Typography>
-                        <img style={{cursor:'pointer'}} 
-                        style={{maxWidth: '50px'}}
-                        src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
-                        alt={place.name}
+                {!matches
+                    ? <LocationOnOutlinedIcon color="primary" fontSize="large" />
+                    : (
+                        <Paper elevation={3} className={classes.paper}>
+                        <Typography className={classes.typography} variant="subtitle2" gutterBottom> {place.name}</Typography>
+                        <img
+                            className={classes.pointer}
+                            src={place.photo ? place.photo.images.large.url : 'https://www.foodserviceandhospitality.com/wp-content/uploads/2016/09/Restaurant-Placeholder-001.jpg'}
                         />
-                    </Paper>
+                        <Rating name="read-only" size="small" value={Number(place.rating)} readOnly />
+                        </Paper>
+                    )}
                     
                 </div>
             ))}

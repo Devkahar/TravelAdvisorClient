@@ -18,7 +18,7 @@ const getPlacesData = async (sw,ne,type) =>{
         },
         headers: {
           'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
-          'x-rapidapi-key': `${key2}`
+          'x-rapidapi-key': `${key3}`
         }
     };
     try {
@@ -36,7 +36,7 @@ const getPlacesDetails = async (id) =>{
     params: {location_id: id, lang: 'en_US'},
     headers: {
       'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
-      'x-rapidapi-key': `${key2}`
+      'x-rapidapi-key': `${key3}`
     }
   }
   try {

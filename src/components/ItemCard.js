@@ -8,8 +8,8 @@ import Typography from '@mui/material/Typography';
 import StarIcon from '@mui/icons-material/Star';
 import {Link} from 'react-router-dom';
 import { Chip, Rating } from '@mui/material';
-export default function MediaCard({place}) {
-    
+export default function MediaCard({place,type, selected, refProp}) {
+  if (selected) refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -40,7 +40,7 @@ export default function MediaCard({place}) {
         ))}
       </CardContent>
       <CardActions>
-        <Button size="small"><Link to={{pathname: `/viewPlacesDetails/${place.location_id}`, state: {...place}}} style={{textDecoration:"none", color:"inherit"}}>See More</Link></Button>
+        <Button size="small"><Link to={{pathname: `/viewPlacesDetails/${type}/${place.location_id}`, state: {...place}}} style={{textDecoration:"none", color:"inherit"}}>See More</Link></Button>
       </CardActions>
     </Card>
   );
