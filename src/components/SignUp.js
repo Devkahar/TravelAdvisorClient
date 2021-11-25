@@ -48,11 +48,12 @@ const SignUp = () => {
             }
             )
             .then(data => {
+                console.log(data);
                 axios.post('/api/user/signup',{
                     name: userName,
                     email: email,
                     password: password,
-                    pic: data.data.fileName,
+                    pic: data.data.filename,
                 },{
                     headers: {
                         contentType: 'application/json',

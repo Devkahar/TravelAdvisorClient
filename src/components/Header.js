@@ -9,12 +9,24 @@ import {useHistory} from 'react-router'
 import {Link} from 'react-router-dom';
 import UserProfile from './UserProfile';
 import logo from '../asset/images/logo.png';
-const Header = ({setCoordinates}) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { coordsAction, placeNameAction, placesNameAction } from '../actions/action';
+
+const Header = () => {
+    const dispatch = useDispatch();
+    const coords = useSelector((state) => state.coordinates);
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     const classes = useStyles();
     const [userPresent,setuserPresent] = useState(false);
+    const [autocomplete,setAutocomplete] = useState(true);
     const history = useHistory();
-    const [autocomplete,setautocomplete] = useState(null);
+    useEffect(()=>{
+        // 34.0522342 -118.2436849
+        navigator.geolocation.getCurrentPosition( e => {
+          dispatch(coordsAction(JSON.parse(localStorage.getItem('coords'))));
+          console.log(coords);
+        });
+    },[]);
     useEffect(()=>{
         if(userInfo){
             setuserPresent(true);
@@ -22,14 +34,15 @@ const Header = ({setCoordinates}) => {
             setuserPresent(false);
         }
     },[userInfo]);
-
-    const onLoad = (autoCom) => setautocomplete(autoCom);
-
+    const onLoad = (autoC) => setAutocomplete(autoC);
     const onPlaceChanged = () => {
+        console.log(autocomplete.getPlace());
         const lat = autocomplete.getPlace().geometry.location.lat();
         const lng = autocomplete.getPlace().geometry.location.lng();
-        setCoordinates({lat,lng})
-    }
+        dispatch(placeNameAction(autocomplete.getPlace().name));
+        dispatch(coordsAction({ lat, lng }));
+        localStorage.setItem('coords', JSON.stringify({lat,lng}));
+    };
     return (
     <AppBar position="static" >
       <Toolbar className={classes.toolbar}>
@@ -54,7 +67,7 @@ const Header = ({setCoordinates}) => {
                 onClick={()=> {
                     history.push('/userpage');
                 }}>
-                    <UserProfile name={userInfo.name} url=""/>
+                    <UserProfile name={userInfo.name} pic={userInfo.pic}/>
                 </Box>
                 
                 <Button onClick={()=>{

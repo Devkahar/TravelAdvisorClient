@@ -67,14 +67,12 @@
 
 .footer{
     float : left;
-    margin-top: 5%;
+    margin-top: 20px;
     width: 100%;
-    height : 300px;
-    background: linear-gradient(90deg, #eecda3  , #000000);
-    border-style: solid;
+    height: 250px;
+    background: linear-gradient(90deg, #cc2b5e   , #753a88);
     color: white;
   }
-
   .quotes{
     font-family: 'IM Fell English SC';
     font-size : 20px
@@ -87,5 +85,5 @@
 
 .footLink{
     text-decoration: none;
-    
+
 }

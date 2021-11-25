@@ -6,21 +6,27 @@ import mapStyles from './mapStyle';
 import useStyles from './style.js';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { Rating } from '@mui/material';
-const Map = ({coordinates,setCoordinates,setBounds,places,setChildClicked}) => {
+import { useDispatch, useSelector } from 'react-redux';
+import {coordsAction} from '../actions/action';
+import { getPlacesData } from '../helper';
+const Map = ({setBounds,places,setChildClicked}) => {
     const matches = useMediaQuery('(min-width:600px)');
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const coords = useSelector((state) => state.coordinates);
     return (
         <div style={{ height: '65vh',width: '90%'}}>
             <GoogleMapReact
                 bootstrapURLKeys={{key: 'AIzaSyDAM0upneeZP9IdiuX-_IOqU4KOv5lDJ4Y'}}
-                defaultCenter={coordinates}
-                center={coordinates}
+                defaultCenter={coords}
+                center={coords}
                 defaultZoom={10}
                 margin={[50, 50, 50, 50]}
                 onChange={e=>{
-                    console.log("Hey ");
-                    setCoordinates({lat: e.center.lat,lng: e.center.lng});
+                    dispatch(coordsAction({lat: e.center.lat,lng: e.center.lng}))
                     setBounds({ne: e.marginBounds.ne, sw: e.marginBounds.sw});
+                    dispatch(coordsAction({lat: e.center.lat}));
+                    console.log(coords," ",{ne: e.marginBounds.ne, sw: e.marginBounds.sw});
                 }}
                 onChildClick={(child) => setChildClicked(child)}
             >

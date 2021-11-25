@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles';
 import { ImageList, ImageListItem } from '@material-ui/core';
 import CircularProgress from '@mui/material/CircularProgress';
 import Message from './Message'
+import UserProfile from './UserProfile';
 const Input = styled('input')({
     display: 'none',
   });
@@ -62,10 +63,11 @@ const Review = ({locationID,type}) => {
             }}
         )
         .then(res=>{
-            console.log(res);
+           
             const data = res.data;
+            console.log(data);
               axios.post('/api/addReview/',{
-                  images: res.data,
+                  images: data,
                   body : reviewBody,
                   rating: rating,
                   locationID: locationID,
@@ -142,7 +144,7 @@ const Review = ({locationID,type}) => {
             {ratingData?.map(e =>(
                 <>
                 <Box sx={{border: '1px solid #eee',mb: 5,p:3}}>
-                    <Typography variant="h4">{e.user.name}</Typography>
+                    <UserProfile name={e.user.name} pic={e.user.pic}/>
                     <Typography variant="p" style={{display: 'block',fontSize: '20px'}}>{e.body}</Typography>
                     <Typography component="legend">Rating</Typography>
                     <Rating name="read-only" value={e.rating} readOnly />

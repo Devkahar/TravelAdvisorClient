@@ -5,6 +5,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import axios from 'axios';
 import Message from './Message'
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [email,setemail] = useState('');
@@ -57,6 +58,8 @@ const Login = () => {
                     <br/>
                     <TextField value={password} onChange={e => setpassword(e.target.value)} type="password" label="Password" variant="outlined" sx={{mb: 5,width: '300px'}} />
                     <br/>
+                    <Link to = "/signup">Forgot Password?</Link>
+                    <br/><br/>
                     <Button variant="contained" sx={{marginRight: '15px'} } onClick={loginHandler}>Submit</Button> <Button variant="contained" onClick={resetHandler}>Reset</Button>
                     </div>
                 </Card>

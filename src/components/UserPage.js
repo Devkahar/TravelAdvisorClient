@@ -34,9 +34,9 @@ const UserPage = () => {
                     <Grid container spacing={2} >
                         <Grid item xs={4}>
                             <Box variant="div" sx={{p: 4}}>
-                            <Avatar  alt="Remy Sharp" src="/uploads/1637004605867-3cb8d2fa-0948-41d2-b25b-f21a4b626c97.jpeg" style ={{ height: '300px', width: '300px'}} />
+                            <Avatar  alt="Remy Sharp" src={userData?.pic} style ={{ height: '300px', width: '300px'}} />
                             </Box>
-                                <List
+                                {/* <List
                                     sx={{
                                         width: '100%',
                                         maxWidth: 360,
@@ -54,7 +54,7 @@ const UserPage = () => {
                                         </Typography>
                                     </li>
                                     <Box>
-                                    <ListItem  sx = {{width : '150px'}}>
+                                    {/* <ListItem  sx = {{width : '150px'}}>
                                         <Grid>
                                             <Grid item xs ={4}>
                                             <ListItemText primary="Work history"/>
@@ -82,17 +82,17 @@ const UserPage = () => {
                                                 <ListItemText primary="Wish List"/>
                                             </Grid>
                                             <Grid item xs = {15}>
-                                                <Typography color="text.secondary" variant="body2">
-                                                {userData?.addToBucket}
+                                                <Typography color="text.secondary" variant="body2">                                                
                                                     Great programmer with literally 0 skills and no experience in engineering.
                                                 </Typography>                     
                                             </Grid>
                                         </Grid>
-                                    </ListItem>
-                                </Box>
+                                    </ListItem> */}
+                                {/* </Box>
                                 <Divider component="li"/>  
-                            </List>
-                        </Grid>
+                            </List>  */}
+                            
+                        </Grid> 
                         <Grid item xs={6}>
                             <List
                                 sx={{
@@ -102,19 +102,20 @@ const UserPage = () => {
                                 }}
                                 >
                                 <ListItem>
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        Name: {userData?.name} 
+                                    
+                                    <Typography gutterBottom variant="h3" component="div">
+                                        {userData?.name} 
                                     </Typography>
                                 </ListItem><ListItem>
-                                    <Typography gutterBottom variant="body2" component="div" sx = {{color: 'red'}}>
-                                        Occupation: 
+                                    <Typography gutterBottom variant="h6" component="div" sx = {{color: 'red'}}>
+                                        Occupation: Works at IBM as Senior project manager
                                     </Typography>
                                 </ListItem>
                                 <Divider component="li"/>
                                 <ListItem  sx = {{width : '150px'}}>
                                     <ListItemText primary="About"/>
                                     <Typography color="text.secondary" variant="body2">
-                                        Great programmer with literally 0 skills and no experience in engineering.
+                                        I want to visit as many places I can before my endgame.
                                     </Typography>
                                 </ListItem>
                                 <Divider component="li" />
@@ -131,9 +132,9 @@ const UserPage = () => {
                                     <ContactPageIcon/>
                                     <ListItemText primary="Contact"/>
                                     <Typography color="text.secondary" variant="body2">
-                                        <li>Phone Number:</li>
+                                        
                                         <li>Email: {userData?.email} </li>
-                                        <li>Address:</li>
+                                       
                                         
                                     </Typography>
                                 </ListItem>
@@ -147,14 +148,14 @@ const UserPage = () => {
                                     >
                                     </Typography>
                                 </li>
-                                <ListItem>
+                                {/* <ListItem>
                                     <InfoIcon/>
                                     <ListItemText primary="Basic Information"/>
                                     <Typography color="text.secondary" variant="body2">
                                         <li>Birth Date: </li>
                                         <li>Gender:</li>                                                                   
                                     </Typography>
-                                </ListItem>
+                                </ListItem> */}
                             </List>
                         </Grid>
                     </Grid>
